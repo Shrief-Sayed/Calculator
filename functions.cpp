@@ -64,7 +64,9 @@ bool IsNumber(char *buf,bool print)
 	    return false;
 	}
 	if (buf[i] == '-') {
+         if(i==0)
 	    negative++;
+         else return false;
 	}
 
     }
