@@ -1,6 +1,5 @@
-#include "functions.h"
+#include "Parser.h"
 #include "calculator.h"
-//int NotNumberFlag = 0 ;
      void Calculator::add(const double a, const double b) {
         result = a + b;
         std::cout << "Result:" << result <<std:: endl;
@@ -39,40 +38,47 @@
 
      void Calculator::driver() {
             std::cout << "Enter your Operation" << std::endl;
-            //std::cin >> c;
-            c=GetInput(false,true);
-	   if(c>0 && c<=5)
+	    //Get the desired operation from user
+            operation=GetInput(false,true);
+           // make sure that operation is supported
+	   if(operation >= 1 && operation <= 5)
            {
             std::cout << "Enter first number" << std::endl;
-            //std::cin >> x;
-            NotNumberFlag=0;
+	    //unset the flags before getting input
+            NotNumberFlag = 0;
+	    NoInputFlag   = 0;
+	    //get the first number
             x=GetInput(true,true);
-	   if(NotNumberFlag)
+            //make sure that is a valid input
+	   if(NotNumberFlag||NoInputFlag)
            return;
             std::cout << "Enter second number" << std::endl;
-            //std::cin >> y;
-            NotNumberFlag=0;
+            //unset the flags before getting input
+            NotNumberFlag = 0;
+	    NoInputFlag   = 0;
+            //get the second number
             y=GetInput(true,true);
-	  if(NotNumberFlag)
+            //make sure that is a valid input
+	  if(NotNumberFlag||NoInputFlag)
             return;
-        switch(c){
+        //do the operation
+        switch(operation){
             case Add: add(x,y); break;
             case Subtract: subtract(x,y); break;
             case Multiply: mult(x,y); break;
             case Divide: divide(x,y); break;
             case Modulus: modulus(x,y); break;
-            default: std::cout << "Invalid input. Try Again!" <<std:: endl;
         }
     }
    else     
-   std::cout << "Invalid input. Try Again!" <<std:: endl;
+   std::cout << "Invalid input. Try Again!" <<std::endl;
 
 }
     void Calculator::driver2() {
         do {
             driver();
         std::cout << "Do you want to continue? 1->Yes/Otherwise -> NO" << std::endl;
-        //std::cin >> choice;
+	    //update the choise , no printing needed
             choice=GetInput(false,false);
         }
         while(choice == 1 );
